@@ -79,25 +79,31 @@ class Billing_System:
             else:
                 print("🛑 Finished adding items.\n")
                 break
-
+    def calculate_total_bill(self):
+        self.total_bill = 0
+        for i in range(len(self.name_items)):
+             item_total = self.cost_items[i] * self.amount_items[i]
+             self.total_bill += item_total
     def view_bill(self):
         """Displays current bill with items and subtotal."""
         print("\n🧾 ===== CURRENT BILL SUMMARY =====")
-        self.total_bill = 0
+        self.calculate_total_bill()
         for i in range(len(self.name_items)):
             item_total = self.cost_items[i] * self.amount_items[i]
             print(f"{i+1}. {self.name_items[i]} - ₹{self.cost_items[i]} x {self.amount_items[i]} = ₹{item_total}")
-            self.total_bill += item_total
         print(f"💵 Subtotal: ₹{self.total_bill}")
         print("===================================\n")
 
     def print_final_bill(self):
         """Calculates tax and prints final total."""
         print("\n🧾 ===== FINAL BILL RECEIPT =====")
+        self.view_bill()
+        self.calculate_total_bill()
         print(f"🕒 Date & Time       : {self.get_current_timestamp()}")
         print(f"🧾 Sub-Total        : ₹{self.total_bill}")
         print(f"🧾 Tax (5%)         : ₹{0.05 * self.total_bill}")
-        total_tax = 0.05 * self.total_bill
+        gst = 0.05
+        total_tax = gst * self.total_bill
         total_bill = self.total_bill + total_tax
         print(f"💵 Total Payable    : ₹{total_bill}")
         print("=================================\n")

@@ -1,4 +1,5 @@
 from datetime import datetime  # Move this import to the top (only once)
+from view_bill import view_bill
 
 def get_current_timestamp():
     """
@@ -10,6 +11,7 @@ def get_current_timestamp():
 def print_final_bill(obj):
     """Calculates tax and prints final total."""
     print("\n🧾 ===== FINAL BILL RECEIPT =====")
+    view_bill(obj)
     print(f"🕒 Date & Time       : {get_current_timestamp()}")
     print(f"🧾 Sub-Total        : ₹{obj.total_bill}")
     tax = 0.05 * obj.total_bill
